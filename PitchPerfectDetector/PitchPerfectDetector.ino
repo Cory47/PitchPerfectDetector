@@ -18,6 +18,10 @@ const char* notes[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#
 const float baseFrequency = 16.35;
 const int sharpIndicatorPin = 2;
 const int naturalNotePins[] = {3, 4, 5, 6, 7, 8, 9};
+const int lowerFreqIndicatorPin = 10;
+const int exactFreqIndicatorPin = 11;
+const int higherFreqIndicatorPin = 12;
+const float freqTolerance = 1.0; // Frequency tolerance in Hz
 
 String getNoteFromFrequency(double frequency) {
   int noteIndex = round(12 * log2(frequency / baseFrequency));
@@ -30,6 +34,15 @@ String getNoteFromFrequency(double frequency) {
   return String(notes[noteInOctave]) + String(octave);
 }
 
+float getIdealFrequency(String note) {
+  int noteIndex = (note[0] - 'A' + 5) % 7;
+  int octave = note[1] - '0';
+  if (note.indexOf('#') != -1) {
+    noteIndex++;
+  }
+  return baseFrequency * pow(2, (noteIndex + octave * numNotes) / 12.0);
+}
+
 void setup() {
   Serial.begin(115200);
   samplingPeriod = round(1000000 * (1.0 / SAMPLING_FREQUENCY));
@@ -38,6 +51,9 @@ void setup() {
   for (int i = 0; i < 7; i++) {
     pinMode(naturalNotePins[i], OUTPUT);
   }
+  pinMode(lowerFreqIndicatorPin, OUTPUT);
+  pinMode(exactFreqIndicatorPin, OUTPUT);
+  pinMode(higherFreqIndicatorPin, OUTPUT);
 }
 
 void loop() {
@@ -67,15 +83,28 @@ void loop() {
       for (int i = 0; i < 7; i++) {
         digitalWrite(naturalNotePins[i], LOW);
       }
+      digitalWrite(lowerFreqIndicatorPin, LOW);
+      digitalWrite(exactFreqIndicatorPin, LOW);
+      digitalWrite(higherFreqIndicatorPin, LOW);
 
       // Turn on LED for the detected note
-      int noteIndex = curNote.indexOf('#');
-      if (noteIndex != -1) {
+      int noteIndex = (note[0] - 'A' + 5) % 7;
+      digitalWrite(naturalNotePins[noteIndex], HIGH);
+
+      if (note.indexOf('#') != -1) {
         digitalWrite(sharpIndicatorPin, HIGH);
-        curNote.remove(noteIndex, 1);
       }
-      int naturalNoteIndex = (curNote[0] - 'A' + 5) % 7; // Convert A, B, C, D, E, F, G to 5, 6, 0, 1, 2, 3, 4
-      digitalWrite(naturalNotePins[naturalNoteIndex], HIGH);
+
+      // Turn on LED to indicate if the detected frequency is higher, lower, or exactly the ideal value of the note
+      float idealFreq = getIdealFrequency(curNote);
+      if (abs(peak - idealFreq) <= freqTolerance) {
+        digitalWrite(exactFreqIndicatorPin, HIGH);
+      } else if (peak < idealFreq) {
+        digitalWrite(lowerFreqIndicatorPin, HIGH);
+      } else {
+        digitalWrite(higherFreqIndicatorPin, HIGH);
+      }
     }
   }
 }
+
