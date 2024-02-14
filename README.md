@@ -20,7 +20,8 @@ Design Flow: High Level overview of the project plan. Shows the flow of audio fr
 ![Screenshot 2024-02-13 at 10 04 23 PM](https://github.com/Cory47/PitchPerfectDetector/assets/83315406/f486bf28-6f6e-431a-99bd-692e7c6f9083)
 
 Breadboard Design: Shows how there is one light for each note, and another light for if the note is sharp. 
-Implementation:
+_____________________
+Implementation: 
 
 The code for the Arduino Uno is designed to detect the pitch of an audio input from a microphone and display the corresponding musical note on the serial monitor. Here's a high-level overview of the code and the transformations it performs:
 
@@ -47,24 +48,3 @@ Through these steps, the code takes the audio input from the microphone, process
 
 Use the provided code to detect the pitch of the audio input and display the corresponding note on the serial monitor.
 
-Test Plan and Results:
-The test plan includes the following test cases:
-
-Test Case 1:
-
-Input a specific note (e.g., A4 at 440 Hz) using a musical instrument or a tone generator app
-
-Expected result: The detected note should be displayed as "A4" on the serial monitor.
-
-Test Case 2: 
-
-Input a series of different notes using a musical instrument or a tone generator app
-
-Expected result: The detected notes should be displayed on the serial monitor in the order they were played.
-
-To execute the test plan, follow these steps:
-
-Upload the provided code to the Arduino Uno.
-Open the Arduino IDE Serial Monitor, and set the baud rate to 115200.
-Perform each test case and observe the serial monitor for the displayed notes.
-For each test case, compare the expected results with the actual results shown on the serial monitor. If the expected and actual results match, the test case is successful.
