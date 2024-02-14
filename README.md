@@ -1,18 +1,8 @@
-Team: Pitch Perfect
-Team Members and Contribution: 
+**Pitch Perfect**
+______________________________
+Task: Created as an extra credit project for CS 334: Operating systems, the task is to create a system using an Arduino Uno that can detect the pitch of audio input from a microphone and display the corresponding note on the serial monitor. Conceptually, this is a pitch detector, for determining if an instrument is out of tune, and can be used to tune it back to the correct note.
 
-Trent:
-Worked to create a plan to build the project. Created code to print the frequency being recorded in the microphone. 
-Cory:
-Created code to apply the Fast Fourier Transform and convert frequency values to notes. Then use the notes and trigger the LED to appear.
-Tyler:
-Tested the project and debugged the code. Created starter code for the project.
-Chase:
-Worked with the breadboard and created the breadboard design including placing the LEDs
-
-Task: The task is to create a system using an Arduino Uno that can detect the pitch of audio input from a microphone and display the corresponding note on the serial monitor. This is a pitch detector, for determining if an instrument is out of tune, and can be used to tune it back to the correct note.
-
-Design:
+**Design:**
 
 The design consists of the following components:
 
