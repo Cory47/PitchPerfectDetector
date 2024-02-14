@@ -1,6 +1,6 @@
 **Pitch Perfect**
 ______________________________
-Task: Created as an extra credit project for CS 334: Operating systems, the task is to create a system using an Arduino Uno that can detect the pitch of audio input from a microphone and display the corresponding note on the serial monitor. Conceptually, this is a pitch detector, for determining if an instrument is out of tune, and can be used to tune it back to the correct note.
+Created as an extra credit project for CS 334: Operating systems, the the goal of this project is to create a system using an Arduino Uno that can detect the pitch of audio input from a microphone and display the corresponding note on the serial monitor. This is a pitch detector, for determining if an instrument is out of tune, and can be used to tune it back to the correct note.
 
 **Design:**
 
